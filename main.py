@@ -6,8 +6,8 @@ from github import download_repo_zip, get_repo_contents_recursive, download_file
 from openapi import get_file_explanation
 from utils.file_utils import create_directory_if_not_exists
 
-def main(user, repo):
-    download_repo_zip(user, repo)
+def main(user, repo, branch):
+    download_repo_zip(user, repo, branch)
 
     contents = get_repo_contents_recursive(user, repo)
     code_files = [item for item in contents if item["name"].endswith(".py")]
@@ -42,5 +42,6 @@ if __name__ == "__main__":
 
     user = sys.argv[1]
     repo = sys.argv[2]
+    branch = sys.argv[3]
 
-    main(user, repo)
+    main(user, repo, branch)

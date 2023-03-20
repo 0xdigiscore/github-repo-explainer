@@ -7,8 +7,8 @@ from env import GITHUB_TOKEN
 
 API_BASE_URL = "https://api.github.com"
 
-def download_repo_zip(user, repo):
-    url = f"https://github.com/{user}/{repo}/archive/refs/heads/main.zip"
+def download_repo_zip(user, repo, branch="main"):
+    url = f"https://github.com/{user}/{repo}/archive/{branch}.zip"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
     proxies = get_proxies()
     response = requests.get(url, headers=headers, proxies=proxies)
@@ -16,7 +16,7 @@ def download_repo_zip(user, repo):
     if response.status_code != 200:
         raise Exception(f"Error downloading repository: {response.text}")
 
-    zip_filename = f"{user}_{repo}.zip"
+    zip_filename = f"{user}_{repo}_{branch}.zip"
     with open(zip_filename, "wb") as f:
         f.write(response.content)
 
@@ -25,7 +25,7 @@ def download_repo_zip(user, repo):
 
     os.remove(zip_filename)
 
-    print(f"Repository {user}/{repo} downloaded and extracted.")
+    print(f"Repository {user}/{repo} (branch {branch}) downloaded and extracted.")
 
 
 def get_repo_contents_recursive(user, repo, path=""):

@@ -1,10 +1,32 @@
 # github.py
 import requests
 import os
+import zipfile
 from utils.http_utils import get_proxies
 from env import GITHUB_TOKEN
 
 API_BASE_URL = "https://api.github.com"
+
+def download_repo_zip(user, repo):
+    url = f"https://github.com/{user}/{repo}/archive/refs/heads/main.zip"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    proxies = get_proxies()
+    response = requests.get(url, headers=headers, proxies=proxies)
+
+    if response.status_code != 200:
+        raise Exception(f"Error downloading repository: {response.text}")
+
+    zip_filename = f"{user}_{repo}.zip"
+    with open(zip_filename, "wb") as f:
+        f.write(response.content)
+
+    with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+        zip_ref.extractall()
+
+    os.remove(zip_filename)
+
+    print(f"Repository {user}/{repo} downloaded and extracted.")
+
 
 def get_repo_contents_recursive(user, repo, path=""):
     url = f"{API_BASE_URL}/repos/{user}/{repo}/contents/{path}"

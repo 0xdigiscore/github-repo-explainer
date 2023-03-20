@@ -3,7 +3,9 @@ import requests
 import os
 import zipfile
 from utils.http_utils import get_proxies
-from env import GITHUB_TOKEN
+from config.load_config import load_config
+
+GITHUB_TOKEN, proxies, _, _,_ = load_config()
 
 API_BASE_URL = "https://api.github.com"
 
@@ -15,7 +17,7 @@ def download_repo_zip(user, repo, branch="main"):
 
     url = f"https://github.com/{user}/{repo}/archive/{branch}.zip"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-    proxies = get_proxies()
+
     response = requests.get(url, headers=headers, proxies=proxies)
 
     if response.status_code != 200:

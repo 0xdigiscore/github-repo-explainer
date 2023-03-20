@@ -1,9 +1,8 @@
 # http_utils.py
 
-import os
+from config.load_config import load_config
+
+_, proxies, _, _,_ = load_config()
 
 def get_proxies():
-    return {
-        "http": os.environ.get("HTTP_PROXY"),
-        "https": os.environ.get("HTTPS_PROXY"),
-    }
+    return proxies

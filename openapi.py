@@ -1,8 +1,11 @@
 # openapi.py
 import requests
 
-from env import OPENAPI_API_KEY
 from utils.http_utils import get_proxies
+
+from config.load_config import load_config
+
+_, _, OPENAPI_API_KEY, _,_ = load_config()
 
 API_BASE_URL = "https://api.openapi.example.com"
 

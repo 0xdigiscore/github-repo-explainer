@@ -9,7 +9,7 @@ from utils.file_utils import create_directory_if_not_exists,find_py_files
 def main(user, repo, branch):
     download_repo_zip(user, repo, branch)
 
-    files = find_py_files(repo)
+    files = find_py_files(f"temp/{user}_{repo}_{branch}")
     if not files:
         print(f"No Python files found in the {user}/{repo} repository.")
         return
@@ -19,7 +19,6 @@ def main(user, repo, branch):
 
     for code_file in files:
         file_name = os.path.basename(code_file)
-        file_url = f"file://{os.path.abspath(code_file)}"
         destination_path = os.path.join(output_directory, f"{os.path.splitext(file_name)[0]}.md")
 
         file_explanation = get_file_explanation(code_file)

@@ -1,0 +1,13 @@
+[github]
+token = YOUR_GITHUB_TOKEN
+
+[proxy]
+http = http://127.0.0.1:7890
+https = ttp://127.0.0.1:7890
+
+[openapi]
+api_key = YOUR_OPENAPI_API_KEY
+
+[directories]
+download = temp
+output = output

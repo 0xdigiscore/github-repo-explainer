@@ -1,0 +1,40 @@
+# .gitignore
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc.pytest_cache
+
+# Virtual environments
+venv/
+ENV/
+env/
+env.bak/
+.venv/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.user
+*.userosscache
+*.pyproj
+*.pyproj.user
+*.sln
+*.sln.docstates
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Temp files
+temp.py
+
+# Generated Markdown files
+*_md_explanations/
+temp/

@@ -7,7 +7,7 @@ from config.load_config import load_config
 
 _, _, OPENAPI_API_KEY, _,_ = load_config()
 
-API_BASE_URL = "https://api.openapi.example.com"
+API_BASE_URL = "https://api.openapi.com/v1"
 
 
 def get_file_explanation(file_path):

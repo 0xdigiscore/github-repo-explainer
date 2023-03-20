@@ -9,8 +9,6 @@ GITHUB_TOKEN, proxies, _, _,_ = load_config()
 
 API_BASE_URL = "https://api.github.com"
 
-# github.py
-
 def download_repo_zip(user, repo, branch="main"):
     if not os.path.exists("temp"):
         os.makedirs("temp")

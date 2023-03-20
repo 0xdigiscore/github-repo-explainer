@@ -4,17 +4,18 @@ import sys
 
 from github import download_repo_zip
 from openapi import get_file_explanation
-from utils.file_utils import create_directory_if_not_exists,find_py_files
+from utils.file_utils import create_directory_if_not_exists,find_py_files, get_output_path,get_repo_download_path
 
 def main(user, repo, branch):
     download_repo_zip(user, repo, branch)
 
-    files = find_py_files(f"temp/{user}_{repo}_{branch}")
+    repo_download_path = get_repo_download_path(user,repo,branch)
+    files = find_py_files(repo_download_path)
     if not files:
         print(f"No Python files found in the {user}/{repo} repository.")
         return
 
-    output_directory = f"{user}_{repo}_md_explanations"
+    output_directory = get_output_path(user,repo,branch)
     create_directory_if_not_exists(output_directory)
 
     for code_file in files:

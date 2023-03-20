@@ -19,7 +19,7 @@ def load_config():
         if config.has_option("openapi", "api_key"):
             openapi_api_key = config.get("openapi", "api_key")
 
-    download_dir = config.get("directories", "download")
-    output_dir = config.get("directories", "output")
+    download_dir = config.get("directories", "download_dir")
+    output_dir = config.get("directories", "output_dir")
 
     return github_token, proxies, openapi_api_key, download_dir, output_dir

@@ -2,19 +2,14 @@
 import os
 import sys
 
-from github import download_repo_zip, get_repo_contents_recursive, download_file
+from github import download_repo_zip
 from openapi import get_file_explanation
-from utils.file_utils import create_directory_if_not_exists
+from utils.file_utils import create_directory_if_not_exists,find_py_files
 
 def main(user, repo, branch):
     download_repo_zip(user, repo, branch)
 
-    files = []
-    for subdir, _, files_list in os.walk(repo):
-        for file in files_list:
-            if file.endswith(".py"):
-                files.append(os.path.join(subdir, file))
-
+    files = find_py_files(repo)
     if not files:
         print(f"No Python files found in the {user}/{repo} repository.")
         return
@@ -37,7 +32,7 @@ def main(user, repo, branch):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print("Usage: python main.py <github_username> <repository_name>")
         sys.exit(1)
 

@@ -4,7 +4,7 @@ import sys
 
 from github import get_repo_contents_recursive, download_file
 from openapi import get_file_explanation
-from utils import create_directory_if_not_exists
+from utils.file_utils import create_directory_if_not_exists
 
 def main(user, repo):
     contents = get_repo_contents_recursive(user, repo)

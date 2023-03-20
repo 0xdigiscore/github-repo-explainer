@@ -1,7 +1,7 @@
 # github.py
 import requests
 import os
-
+from utils.http_utils import get_proxies
 from env import GITHUB_TOKEN
 
 API_BASE_URL = "https://api.github.com"
@@ -9,7 +9,8 @@ API_BASE_URL = "https://api.github.com"
 def get_repo_contents_recursive(user, repo, path=""):
     url = f"{API_BASE_URL}/repos/{user}/{repo}/contents/{path}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-    response = requests.get(url, headers=headers)
+    proxies = get_proxies()
+    response = requests.get(url, headers=headers, proxies=proxies)
 
     if response.status_code != 200:
         raise Exception(f"Error fetching contents of {user}/{repo}/{path}: {response.text}")
@@ -27,7 +28,8 @@ def get_repo_contents_recursive(user, repo, path=""):
 
 def download_file(url, destination_path):
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-    response = requests.get(url, headers=headers)
+    proxies = get_proxies()
+    response = requests.get(url, headers=headers, proxies=proxies)
 
     if response.status_code == 200:
         with open(destination_path, "wb") as f:

@@ -1,5 +1,6 @@
 # openapi.py
 import requests
+import shutil
 
 from utils.http_utils import get_proxies
 

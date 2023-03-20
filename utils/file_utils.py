@@ -16,6 +16,14 @@ def find_py_files(directory):
                 py_files.append(os.path.join(subdir, file))
     return py_files
 
+def find_md_files(directory):
+    md_files = []
+    for subdir, _, files_list in os.walk(directory):
+        for file in files_list:
+            if file.endswith(".md"):
+                md_files.append(os.path.join(subdir, file))
+    return md_files
+
 def get_repo_download_path(user, repo, branch):
     return f"{download_dir}/{user}_{repo}_{branch}"
 

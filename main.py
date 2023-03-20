@@ -1,10 +1,11 @@
 # main.py
 import os
 import sys
+import shutil
 
 from github import download_repo_zip
 from openapi import get_file_explanation
-from utils.file_utils import create_directory_if_not_exists,find_py_files, get_output_path,get_repo_download_path
+from utils.file_utils import create_directory_if_not_exists,find_py_files, get_output_path,get_repo_download_path,find_md_files
 
 def main(user, repo, branch):
     download_repo_zip(user, repo, branch)
@@ -17,6 +18,12 @@ def main(user, repo, branch):
 
     output_directory = get_output_path(user,repo,branch)
     create_directory_if_not_exists(output_directory)
+
+    md_files = find_md_files(repo_download_path)
+
+    for md_file in md_files:
+        shutil.copy2(md_file, output_directory)
+        print(f"Markdown file {md_file} copied to {output_directory}.")
 
     for code_file in files:
         file_name = os.path.basename(code_file)
